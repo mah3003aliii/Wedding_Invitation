@@ -516,14 +516,6 @@
             }, 850);
         }
 
-        // Restrict drag gestures directly on the document level, protecting the card scroller
-        document.addEventListener('touchmove', function(e) {
-            // If dragging inside the card-scroller, allow native mobile touch interaction
-            if (e.target.closest('#card-scroller')) {
-                return; 
-            }
-            e.preventDefault();
-        }, { passive: false });
     </script>
 </body>
 </html>
