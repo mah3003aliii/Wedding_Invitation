@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation: Zinnat & Asim</title>
+    
+    <!-- Google Fonts: Elegant Serifs and Traditional Arabic Calligraphy -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for Responsive Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            light: '#fdfaf2',
+                            DEFAULT: '#c5a059',
+                            dark: '#aa771c',
+                            shimmer: '#f3e5ab'
+                        },
+                        espresso: {
+                            light: '#065f46',   // Deep Emerald Print
+                            DEFAULT: '#022c22', // Deep Royal Green Print
+                            dark: '#01140f'     // Midnight Forest Green
+                        },
+                        ivory: {
+                            light: '#fefdfb',
+                            DEFAULT: '#faf6f0',
+                            dark: '#f1e7d8'
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        garamond: ['Cormorant Garamond', 'serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        arabic: ['Amiri Quran', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CRITICAL MOBILE FIX: Lock body viewport completely to stop rubber-band sliding/bouncing */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden !important;
+            background-color: #01140f;
+            overscroll-behavior: none !important;
+        }
+
+        /* Royal Green Velvet Premium Textured Wallpaper Feel for Envelope */
+        .royal-green-velvet-bg {
+            background: radial-gradient(circle, #054a36 0%, #022c22 70%, #01140f 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 80px rgba(197, 160, 89, 0.25);
+            z-index: 1;
+        }
+
+        /* Cream Paper Texture with subtle Moroccan star tiles */
+        .cream-textured {
+            background-color: #faf6f0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 0 L35 15 L50 20 L35 25 L30 40 L25 25 L10 20 L25 15 Z' fill='%23022c22' fill-opacity='0.05'/%3E%3Cpath d='M0 30 L5 45 L20 50 L5 55 L0 70 L-5 55 L-20 50 L-5 45 Z' fill='%23022c22' fill-opacity='0.05'/%3E%3Cpath d='M60 30 L65 45 L80 50 L65 55 L60 70 L55 55 L40 50 L55 45 Z' fill='%23022c22' fill-opacity='0.05'/%3E%3C/svg%3E");
+            position: relative;
+            box-shadow: inset 0 0 50px rgba(4, 78, 58, 0.06);
+        }
+
+        /* Paper Fiber Noise Filter Overlay */
+        .texture-overlay::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.12;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Metallic Gold text gradients for primary invitation headers */
+        .gold-text-gradient {
+            background: linear-gradient(135deg, #fdfaf2 0%, #ebd2c8 30%, #c5a059 70%, #aa771c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Envelope open perspective configs */
+        .envelope-perspective {
+            perspective: 1500px;
+        }
+
+        .envelope-flap {
+            transform-origin: top;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 30;
+        }
+
+        .envelope-flap.opened {
+            transform: rotateX(180deg);
+            z-index: 10;
+        }
+
+        .card-container {
+            transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1), opacity 1.2s ease;
+        }
+
+        /* Pull-out placement when envelope is opened */
+        .card-container.extracted {
+            transform: translate(-50%, -24%) scale(1.02);
+            z-index: 40;
+        }
+
+        @media (max-width: 768px) {
+            .card-container.extracted {
+                transform: translate(-50%, -20%) scale(1.01);
+            }
+        }
+
+        /* Gentle floating animation for Star Rosette Seal */
+        @keyframes pulseRosette {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -54%) scale(1.02); }
+        }
+
+        .rosette-hover {
+            animation: pulseRosette 3.5s infinite ease-in-out;
+        }
+        
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-stone-200 font-garamond selection:bg-gold selection:text-white">
+
+    <!-- Global Background Layer -->
+    <div class="royal-green-velvet-bg"></div>
+    <canvas id="sparkles-canvas" class="fixed inset-0 pointer-events-none z-10 opacity-55"></canvas>
+
+
+    <!-- Main Card & Envelope Assembly Container -->
+    <main class="w-full max-w-4xl px-4 py-8 md:py-16 flex-grow flex justify-center items-center relative z-20">
+        
+        <div id="envelope-wrapper" class="relative w-full max-w-lg aspect-[3/4.6] md:aspect-[3.6/5] bg-transparent flex flex-col items-center justify-center envelope-perspective transition duration-1000">
+            
+            <!-- THE INVITATION CARD -->
+            <div id="invitation-card" class="card-container opacity-0 absolute left-1/2 -translate-x-1/2 top-20 md:top-24 bg-gradient-to-b from-ivory-light via-ivory to-ivory-dark rounded-xl p-1.5 border-2 border-gold shadow-2xl overflow-hidden pointer-events-none w-full max-w-[320px] xs:max-w-[365px] md:max-w-[400px] aspect-[1/1.92]">
+                
+                <!-- Inner Layout Sheet with Moroccan Star Pattern Background -->
+                <div class="cream-textured rounded-lg h-full w-full relative overflow-hidden grid grid-cols-1 grid-rows-1">
+                    
+                    <!-- LAYER 1: SVG ARCHWAY BACKGROUND LAYER -->
+                    <div class="col-start-1 row-start-1 w-full h-full p-3 md:p-4 pointer-events-none z-0">
+                        <svg class="w-full h-full" viewBox="0 0 400 760" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                            <!-- Outer Ogee Archway Frame -->
+                            <path d="M 18 735 L 18 190 C 18 115 85 85 200 25 C 315 85 382 115 382 190 L 382 735 Z" stroke="url(#cardGoldGrad)" stroke-width="2.5" />
+                            <!-- Inner Fine Archway Frame -->
+                            <path d="M 28 725 L 28 195 C 28 125 90 95 200 37 C 310 95 372 125 372 195 L 372 725 Z" stroke="url(#cardGoldGrad)" stroke-width="0.75" />
+                            
+                            <!-- Left Hanging Tassel Lantern Design -->
+                            <path d="M 42 190 L 42 225" stroke="url(#cardGoldGrad)" stroke-width="0.75"/>
+                            <circle cx="42" cy="227" r="2.5" fill="url(#cardGoldGrad)" />
+                            <path d="M 38 230 L 46 230 L 42 242 Z" fill="url(#cardGoldGrad)" />
+                            
+                            <!-- Right Hanging Tassel Lantern Design -->
+                            <path d="M 358 190 L 358 225" stroke="url(#cardGoldGrad)" stroke-width="0.75"/>
+                            <circle cx="358" cy="227" r="2.5" fill="url(#cardGoldGrad)" />
+                            <path d="M 354 230 L 362 230 L 358 242 Z" fill="url(#cardGoldGrad)" />
+
+                            <!-- Elegant Golden Gradients -->
+                            <defs>
+                                <linearGradient id="cardGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#8a5b0f" />
+                                    <stop offset="30%" stop-color="#c5a059" />
+                                    <stop offset="70%" stop-color="#fdfaf2" />
+                                    <stop offset="100%" stop-color="#8a5b0f" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <!-- LAYER 2: SPACING-SAFE TEXT CONTENT LAYER -->
+                    <!-- Sized pt-[24%] to slide the Bismillah & Salaam sections elegantly downwards -->
+                    <div id="card-scroller" class="col-start-1 row-start-1 w-full h-full z-10 flex flex-col justify-between pt-[24%] pb-[13%] px-[11%] text-center overflow-y-auto no-scrollbar" style="touch-action: pan-y;">
+                        
+                        <!-- UPPER PEAK: Bismillah & Salaam -->
+                        <div class="flex flex-col items-center justify-center w-full max-w-[240px] mx-auto">
+                            <!-- Bismillah Calligraphy -->
+                            <h2 class="font-arabic text-xl xs:text-2xl md:text-3xl text-espresso-dark drop-shadow-sm leading-relaxed pb-2 pt-1">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</h2>
+                            
+                            <!-- English Translation -->
+                            <p class="font-garamond text-[9px] md:text-[10px] text-espresso-light font-medium italic leading-normal pb-2">(In the name of Allah, the Most Gracious, the Most Merciful)</p>
+                            
+                            <!-- Salaam greeting -->
+                            <p class="font-cinzel text-[8px] xs:text-[9px] md:text-[9.5px] tracking-[0.12em] text-espresso-dark font-extrabold uppercase leading-relaxed pt-1">Assalamu Alaikum Warahmatullahi Wabarakatuh</p>
+                        </div>
+
+                        <!-- MIDDLE BODY -->
+                        <div class="flex flex-col items-center justify-center space-y-2.5 xs:space-y-3 md:space-y-3.5 flex-grow py-1">
+                            <!-- Blessings Invitation Wording -->
+                            <p class="font-garamond text-[10px] xs:text-[11px] md:text-xs text-espresso-light italic leading-none font-medium">
+                                With the grace and blessings of Almighty Allah,
+                            </p>
+                            
+                            <span class="inline-block h-px w-8 bg-gold/50 leading-none"></span>
+                            
+                            <!-- Host Section -->
+                            <div class="space-y-0.5">
+                                <p class="font-montserrat text-[8px] text-espresso-dark uppercase tracking-[0.25em] font-extrabold">We Cordially Invite You</p>
+                                <h3 class="font-cinzel text-xs xs:text-sm md:text-base text-espresso-dark font-black tracking-wider leading-none">Mr. Mir Yakub Ali</h3>
+                                <p class="font-garamond text-[10px] xs:text-[11px] md:text-xs text-espresso-light italic max-w-[200px] xs:max-w-[220px] mx-auto leading-relaxed pt-0.5">
+                                    cordially invites you to grace the auspicious occasion of the Nikah ceremony of his beloved daughter
+                                </p>
+                            </div>
+
+                            <!-- Names Display Area -->
+                            <div class="w-full space-y-0.5">
+                                <!-- Arabesque Star Ornament -->
+                                <div class="text-gold text-[8px] mb-0.5 flex justify-center gap-1 opacity-80">
+                                    <i class="fa-solid fa-star-of-david text-[4px]"></i>
+                                    <i class="fa-solid fa-star-of-david text-[6px]"></i>
+                                    <i class="fa-solid fa-star-of-david text-[4px]"></i>
+                                </div>
+                                
+                                <!-- Bride & Groom details with parent names -->
+                                <div class="space-y-1.5 max-w-[190px] xs:max-w-[220px] mx-auto">
+                                    <div class="space-y-0.5">
+                                        <h4 class="font-cinzel text-sm xs:text-base md:text-lg font-black text-espresso-dark tracking-widest leading-none">Zinnat Shaikh</h4>
+                                        <p class="font-garamond text-[9.5px] xs:text-[10.5px] text-espresso-light italic font-bold leading-none mt-1">(Daughter of Mr. Mir Yakub Ali)</p>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-center my-1">
+                                        <span class="h-px w-5 bg-gold/50"></span>
+                                        <span class="font-garamond italic text-espresso-dark text-xs px-2.5 font-bold leading-none">with</span>
+                                        <span class="h-px w-5 bg-gold/50"></span>
+                                    </div>
+                                    
+                                    <div class="space-y-0.5">
+                                        <h4 class="font-cinzel text-sm xs:text-base md:text-lg font-black text-espresso-dark tracking-widest leading-none">Asim Baux</h4>
+                                        <p class="font-garamond text-[9.5px] xs:text-[10.5px] text-espresso-light italic font-bold leading-none mt-1">(Son of Mr. Azim Baux)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ceremony Details -->
+                            <div class="w-full max-w-[230px] xs:max-w-[250px] space-y-2">
+                                <!-- Date & Time Row -->
+                                <div class="border-y border-gold/40 py-1.5 flex justify-around items-center bg-ivory-light/50 rounded-sm">
+                                    <div class="text-center px-0.5">
+                                        <p class="font-montserrat text-[7.5px] tracking-widest text-espresso-dark uppercase font-extrabold leading-none">Day & Date</p>
+                                        <p class="font-cinzel text-[10px] xs:text-[10.5px] font-extrabold text-espresso-dark mt-1 leading-none">Tuesday</p>
+                                        <p class="font-cinzel text-[10.5px] xs:text-[11px] font-black text-espresso-dark mt-0.5 leading-none">03 November 2026</p>
+                                    </div>
+                                    <div class="h-5 w-px bg-gold/40"></div>
+                                    <div class="text-center px-0.5">
+                                        <p class="font-montserrat text-[7.5px] tracking-widest text-espresso-dark uppercase font-extrabold leading-none">Time of Nikah</p>
+                                        <p class="font-cinzel text-[10px] xs:text-[10.5px] font-extrabold text-espresso-dark mt-1 leading-none">7:00 PM</p>
+                                        <p class="font-cinzel text-[10.5px] xs:text-[11px] font-black text-espresso-dark mt-0.5 leading-none">(After Maghrib Namaz)</p>
+                                    </div>
+                                </div>
+
+                                <!-- Venue Location Section -->
+                                <div class="space-y-1 text-center flex flex-col items-center justify-center w-full">
+                                    <p class="font-montserrat text-[7.5px] tracking-widest text-espresso-dark uppercase font-extrabold leading-none">Venue</p>
+                                    <h4 class="font-cinzel text-xs xs:text-sm md:text-base text-espresso-dark font-black tracking-wider leading-tight">Laal Muhammad Mohalla</h4>
+                                    <p class="font-garamond text-[10px] xs:text-[11px] md:text-xs text-espresso-light leading-none font-semibold">Krushnanandapur, Odisha</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LOWER FOOTER -->
+                        <div class="flex flex-col items-center space-y-2 pt-2 mb-2 w-full max-w-[220px] mx-auto border-t border-gold/10">
+                            <!-- Beautiful Quran Quote -->
+                            <p class="font-garamond text-[10px] xs:text-[11px] text-espresso-dark italic font-bold leading-tight text-center">
+                                "And He has put love and mercy between your hearts."
+                                <span class="block mt-0.5 font-sans text-[7px] uppercase tracking-wider text-espresso-light">(Quran 30:21)</span>
+                            </p>
+                            
+                            <!-- Location Action Button -->
+                            <div class="w-full flex justify-center items-center mt-2">
+                                <a href="https://maps.google.com/?q=Lal+MD+Mohalla,+Paikakul,+Krushnanandapur,+Odisha+754135" target="_blank" class="inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-espresso to-espresso-dark hover:from-gold hover:to-gold-dark text-ivory border border-gold px-3 py-1.5 rounded-md text-[8.5px] tracking-widest uppercase font-montserrat font-bold transition-all duration-300 w-full shadow-md transform hover:-translate-y-0.5 active:translate-y-0">
+                                    <i class="fa-solid fa-location-dot text-[10px] text-gold-shimmer"></i>
+                                Open Venue Location
+                            </a>
+                        </div>  
+                            <!-- RSVP Block -->
+                            <div class="text-center text-espresso-light text-[9.5px] font-sans tracking-wide leading-none pt-0.5">
+                                <span class="font-bold text-espresso-dark uppercase font-montserrat tracking-[0.12em] text-[8px] inline-block">RSVP:</span>
+                                <span class="ml-1 font-semibold">Shaikh Family •</span> <a href="tel:+918177982575" class="hover:underline font-extrabold text-espresso-dark text-[11px] ml-1 tracking-wide">+91 9860714675</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENVELOPE BASE BACK LAYER -->
+            <div id="envelope-base" class="absolute inset-0 royal-green-velvet-bg border-x border-b border-gold/30 shadow-2xl rounded-b-xl overflow-hidden flex flex-col justify-end p-6 md:p-8 pointer-events-none z-20 texture-overlay">
+                <div class="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#c5a059_1.5px,transparent_1.5px)] [background-size:20px_20px]"></div>
+                
+                <div id="welcome-preview" class="relative z-30 text-center space-y-4 mb-4 md:mb-8 transition-all duration-700">
+                    <span class="inline-block py-1 px-5 rounded-full border-2 border-gold/30 bg-black/50 text-gold-shimmer text-xs tracking-[0.25em] uppercase font-montserrat font-bold">Nikah Invitation</span>
+                    <h1 class="font-cinzel text-xl md:text-2xl font-bold gold-text-gradient tracking-widest leading-relaxed">THE WEDDING OF<br><span class="text-white text-2xl md:text-3xl font-extrabold block mt-2">ZINNAT & ASIM</span></h1>
+                    <p class="font-garamond text-sm italic text-stone-300 font-medium">Under the Divine Blessings of Almighty Allah</p>
+                </div>
+            </div>
+
+            <!-- ENVELOPE TOP FOLD FLAP -->
+            <div id="envelope-flap" class="envelope-flap absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-[#054a36] to-[#01140f] border-t border-x border-gold/30 rounded-t-xl origin-top flex items-center justify-center pointer-events-none z-30 texture-overlay">
+                <div class="absolute inset-x-2 top-2 h-[90%] border-t border-x border-gold/20 rounded-t-lg"></div>
+            </div>
+
+            <!-- GEOMETRIC STAR SEAL BUTTON -->
+            <div id="wax-seal" class="rosette-hover absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center justify-center cursor-pointer select-none transition-all duration-700">
+                <div onclick="openEnvelope()" class="w-24 h-24 md:w-28 md:h-28 flex items-center justify-center relative transition-all duration-300 active:scale-95">
+                    <svg class="absolute inset-0 w-full h-full drop-shadow-[0_8px_20px_rgba(1,20,15,0.45)] hover:scale-105 transition-transform duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 50 5 L 63 37 L 95 50 L 63 63 L 50 95 L 37 63 L 5 50 L 37 37 Z" fill="url(#sealGold)" stroke="#fdfaf2" stroke-width="1.5" />
+                        <path d="M 50 5 L 63 37 L 95 50 L 63 63 L 50 95 L 37 63 L 5 50 L 37 37 Z" fill="url(#sealGold)" stroke="#fdfaf2" stroke-width="1.5" transform="rotate(45 50 50)" />
+                        <circle cx="50" cy="50" r="22" fill="#faf6f0" stroke="#8a5b0f" stroke-width="1.5" />
+                        <circle cx="50" cy="50" r="16" fill="url(#sealGreen)" />
+                        <path d="M 53 44 C 47 44 43 48 43 54 C 43 60 48 64 54 64 C 58 64 61 61 62 58 C 58 60 52 59 50 54 C 48 49 51 45 53 44 Z" fill="#faf6f0" />
+                        <polygon points="56,42 58,45 61,45 59,47 60,50 57,48 55,50 56,47 54,45 57,45" fill="#faf6f0" />
+                        <defs>
+                            <linearGradient id="sealGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#fdfaf2" />
+                                <stop offset="50%" stop-color="#c5a059" />
+                                <stop offset="100%" stop-color="#aa771c" />
+                            </linearGradient>
+                            <linearGradient id="sealGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#047857" />
+                                <stop offset="100%" stop-color="#022c22" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <p id="seal-instruction" class="font-montserrat text-[10px] tracking-[0.3em] uppercase text-gold-shimmer mt-5 text-center bg-black/80 py-2 px-5 rounded-full border-2 border-gold/40 backdrop-blur-md shadow-lg animate-pulse font-bold whitespace-nowrap">
+                    Click Seal to Open
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="w-full text-center py-6 relative z-30 bg-black/60 border-t border-gold/10 backdrop-blur-md">
+        <p class="font-garamond text-sm text-stone-400">Created for the auspicious occasion of Zinnat & Asim Baux's Wedding</p>
+        <p class="font-montserrat text-[9px] text-stone-500 uppercase tracking-widest mt-1.5">Nov 3rd, 2026 | Odisha, India</p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('sparkles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.2 + 0.5;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.25 + 0.12;
+                this.opacity = Math.random() * 0.6 + 0.2;
+                this.color = `rgba(${Math.floor(Math.random() * 30 + 200)}, ${Math.floor(Math.random() * 40 + 150)}, ${Math.floor(Math.random() * 30 + 130)}, ${this.opacity})`;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.y > canvas.height) {
+                    this.y = 0;
+                    this.x = Math.random() * canvas.width;
+                }
+                if (this.x > canvas.width || this.x < 0) {
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.shadowBlur = 3;
+                ctx.shadowColor = '#c5a059';
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 65; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        function openEnvelope() {
+            const flap = document.getElementById('envelope-flap');
+            const card = document.getElementById('invitation-card');
+            const seal = document.getElementById('wax-seal');
+            const welcome = document.getElementById('welcome-preview');
+
+            seal.style.opacity = '0';
+            seal.style.transform = 'scale(0.85) translate(-50%, -200%)';
+            seal.style.pointerEvents = 'none';
+            welcome.style.opacity = '0';
+            welcome.style.transform = 'translateY(15px)';
+
+            flap.classList.add('opened');
+
+
+            setTimeout(() => {
+                card.classList.add('extracted');
+                card.style.opacity = '1';
+                card.style.pointerEvents = 'auto';
+            }, 850);
+        }
+
+    </script>
+</body>
+</html>
